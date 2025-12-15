@@ -99,48 +99,61 @@
                     Enter your email to join the AncestryScan waitlist and get early access to the platform and the latest updates on launch.
                 </p>
 
-                <!-- Mailchimp Form -->
-                <form 
-                    action="https://gmail.us16.list-manage.com/subscribe/post?u=9d803acdd92b77a9cad21b6b0&amp;id=2cb3a0e10e&amp;f_id=003f23e1f0" 
-                    method="POST" 
-                    id="mc-embedded-subscribe-form"
-                    name="mc-embedded-subscribe-form"
-                    target="_blank"
-                    class="space-y-4"
-                >
-                    <div>
-                        <label for="email" class="sr-only">Email Address</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fa-regular fa-envelope text-slate-400"></i>
+                <!-- Form Container -->
+                <div id="form-container">
+                    <form id="signup-form" class="space-y-4">
+                        <div>
+                            <label for="email" class="sr-only">Email Address</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fa-regular fa-envelope text-slate-400"></i>
+                                </div>
+                                <input 
+                                    type="email" 
+                                    name="EMAIL" 
+                                    id="email" 
+                                    required
+                                    class="block w-full pl-10 pr-3 py-4 border border-slate-600 rounded-xl leading-5 bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition duration-150 ease-in-out" 
+                                    placeholder="Enter your email address"
+                                >
                             </div>
-                            <input 
-                                type="email" 
-                                name="EMAIL" 
-                                id="email" 
-                                required
-                                class="block w-full pl-10 pr-3 py-4 border border-slate-600 rounded-xl leading-5 bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition duration-150 ease-in-out" 
-                                placeholder="Enter your email address"
-                            >
                         </div>
-                    </div>
 
-                    <!-- Anti-spam Honeypot -->
-                    <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                        <input type="text" name="b_9d803acdd92b77a9cad21b6b0_2cb3a0e10e" tabindex="-1" value="">
-                    </div>
+                        <button 
+                            type="submit" 
+                            id="submit-btn"
+                            class="w-full flex justify-center py-4 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-brand-600 hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition duration-150 ease-in-out shadow-lg shadow-brand-500/30"
+                        >
+                            <span id="btn-text">Join Waitlist</span>
+                            <svg id="btn-spinner" class="hidden animate-spin ml-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </button>
+                        
+                        <p class="text-xs text-slate-500 text-center mt-4">
+                            We value your privacy. No spam, ever.
+                        </p>
+                    </form>
+                </div>
 
-                    <button 
-                        type="submit" 
-                        class="w-full flex justify-center py-4 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-brand-600 hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-500 transition duration-150 ease-in-out shadow-lg shadow-brand-500/30"
-                    >
-                        Join Waitlist
-                    </button>
-                    
-                    <p class="text-xs text-slate-500 text-center mt-4">
-                        We value your privacy. No spam, ever.
-                    </p>
-                </form>
+                <!-- Success Message (hidden by default) -->
+                <div id="success-message" class="hidden">
+                    <div class="text-center py-8">
+                        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-500/20 mb-6">
+                            <i class="fa-solid fa-check text-green-400 text-3xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white mb-3">You're on the list!</h2>
+                        <p class="text-slate-300">Thanks for signing up. We'll be in touch soon with early access details.</p>
+                    </div>
+                </div>
+
+                <!-- Error Message (hidden by default) -->
+                <div id="error-message" class="hidden">
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-4 mb-4">
+                        <p class="text-red-400 text-sm" id="error-text">Something went wrong. Please try again.</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Right Side: Background Image -->
@@ -155,6 +168,85 @@
     <footer class="py-6 text-center text-slate-500 text-sm">
         &copy; 2025 AncestryScan. All rights reserved.
     </footer>
+
+    <script>
+        const form = document.getElementById('signup-form');
+        const formContainer = document.getElementById('form-container');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnSpinner = document.getElementById('btn-spinner');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            
+            // Show loading state
+            btnText.textContent = 'Joining...';
+            btnSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+            errorMessage.classList.add('hidden');
+
+            // Mailchimp JSONP endpoint
+            const mailchimpUrl = 'https://gmail.us16.list-manage.com/subscribe/post-json?u=9d803acdd92b77a9cad21b6b0&id=2cb3a0e10e&f_id=003f23e1f0';
+            
+            try {
+                // Use JSONP for cross-origin Mailchimp request
+                const callbackName = 'mc_callback_' + Date.now();
+                
+                const script = document.createElement('script');
+                script.src = `${mailchimpUrl}&EMAIL=${encodeURIComponent(email)}&c=${callbackName}`;
+                
+                window[callbackName] = (response) => {
+                    // Clean up
+                    delete window[callbackName];
+                    document.body.removeChild(script);
+                    
+                    // Reset button
+                    btnText.textContent = 'Join Waitlist';
+                    btnSpinner.classList.add('hidden');
+                    submitBtn.disabled = false;
+                    
+                    if (response.result === 'success') {
+                        // Show success message
+                        formContainer.classList.add('hidden');
+                        successMessage.classList.remove('hidden');
+                    } else if (response.result === 'error') {
+                        // Handle "already subscribed" as success
+                        if (response.msg && response.msg.includes('already subscribed')) {
+                            formContainer.classList.add('hidden');
+                            successMessage.classList.remove('hidden');
+                        } else {
+                            // Show error
+                            errorText.innerHTML = response.msg || 'Something went wrong. Please try again.';
+                            errorMessage.classList.remove('hidden');
+                        }
+                    }
+                };
+                
+                script.onerror = () => {
+                    delete window[callbackName];
+                    btnText.textContent = 'Join Waitlist';
+                    btnSpinner.classList.add('hidden');
+                    submitBtn.disabled = false;
+                    errorText.textContent = 'Network error. Please try again.';
+                    errorMessage.classList.remove('hidden');
+                };
+                
+                document.body.appendChild(script);
+                
+            } catch (error) {
+                btnText.textContent = 'Join Waitlist';
+                btnSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
+                errorText.textContent = 'Something went wrong. Please try again.';
+                errorMessage.classList.remove('hidden');
+            }
+        });
+    </script>
 
 </body>
 </html>
