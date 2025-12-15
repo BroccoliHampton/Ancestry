@@ -42,6 +42,7 @@
                         brand: {
                             50: '#eff6ff',
                             100: '#dbeafe',
+                            400: '#60a5fa', // Light Blue for accents
                             500: '#3b82f6', // Standard Blue
                             600: '#2563eb', // Darker Blue
                             900: '#1e3a8a', // Navy Blue
@@ -64,18 +65,18 @@
         
         /* Custom scrollbar for webkit browsers */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #1e3a8a; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
-<body class="bg-slate-900 min-h-screen flex flex-col text-slate-300">
+<body class="bg-slate-950 min-h-screen flex flex-col text-slate-300">
 
     <main class="flex-grow flex items-center justify-center p-6">
-        <div class="max-w-5xl w-full bg-slate-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-slate-700 relative z-10">
+        <div class="max-w-5xl w-full bg-slate-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-slate-800 relative z-10">
             
             <!-- Left Side: Content & Form -->
-            <div class="w-full md:w-1/2 p-10 md:p-14 flex flex-col justify-center relative">
+            <div class="w-full md:w-1/2 p-10 md:p-14 flex flex-col justify-center relative min-h-[500px]">
                 
                 <!-- Logo Section -->
                 <div class="mb-8">
@@ -90,13 +91,18 @@
                 </div>
                 
                 <!-- Headline -->
-                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-2 leading-tight">
                     AncestryScan Early Signup
                 </h1>
                 
+                <!-- Subtitle -->
+                <p class="text-brand-400 text-lg mb-6 font-medium">
+                    Unlock the history of your facial features with just a selfie.
+                </p>
+                
                 <!-- Description -->
-                <p class="text-slate-300 text-lg mb-8 leading-relaxed">
-                    Enter your email to join the AncestryScan waitlist and get early access to the platform and the latest updates on launch.
+                <p class="text-slate-400 mb-8 leading-relaxed">
+                    Enter your email to join the waitlist and get early access to the platform.
                 </p>
 
                 <!-- Form Container -->
@@ -113,7 +119,7 @@
                                     name="EMAIL" 
                                     id="email" 
                                     required
-                                    class="block w-full pl-10 pr-3 py-4 border border-slate-600 rounded-xl leading-5 bg-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition duration-150 ease-in-out" 
+                                    class="block w-full pl-10 pr-3 py-4 border border-slate-700 rounded-xl leading-5 bg-slate-800 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition duration-150 ease-in-out" 
                                     placeholder="Enter your email address"
                                 >
                             </div>
@@ -154,7 +160,7 @@
             </div>
 
             <!-- Right Side: Background Image -->
-            <div class="hidden md:block w-1/2 bg-slate-900 relative overflow-hidden">
+            <div class="hidden md:block w-1/2 bg-slate-950 relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center"
                      style="background-image: url('https://i.imgur.com/le7J7AZ.png');">
                 </div>
@@ -162,7 +168,7 @@
         </div>
     </main>
 
-    <footer class="py-6 text-center text-slate-500 text-sm">
+    <footer class="py-6 text-center text-slate-600 text-sm">
         &copy; 2025 AncestryScan. All rights reserved.
     </footer>
 
